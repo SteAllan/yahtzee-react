@@ -1,0 +1,26 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+.box {
+  max-width: 400px;
+  h1 {
+    font-size: 20px;
+    margin: 0 0 1rem 0;
+  }
+}
+
+.die {
+  display: inline-block;
+  margin-right: 15px;
+  padding: 10px;
+  background: grey;
+  color: white;
+}
+
+.die--held {
+  background: blue;
+}
