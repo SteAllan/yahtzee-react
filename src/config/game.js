@@ -22,3 +22,37 @@ export const initialDiceConfig = [
     held: false
   }
 ];
+
+const valueTypes = {
+  DYNAMIC: 'dynamic',
+  FIXED: 'fixed'
+}
+
+const upperSectionValueFormula = (dice, numberToAchieve) => {
+  const filteredDice = dice.filter(die => die.number === numberToAchieve);
+
+  if (filteredDice.length >= 3) {
+    return filteredDice.reduce((acc, currentValue) => acc + currentValue.number, 0);
+  }
+
+  return 0;
+};
+
+export const rules = {
+  upperSection: {
+    turns: [
+      {
+        displayName: '1s',
+        valueType: valueTypes.DYNAMIC,
+        valueFormula: dice => upperSectionValueFormula(dice, 1)
+      },
+      {
+        displayName: '2s',
+        valueType: valueTypes.DYNAMIC,
+        valueFormula: dice => upperSectionValueFormula(dice, 2)
+      }
+    ],
+    totals: []
+  },
+  lowerSection: {}
+};
