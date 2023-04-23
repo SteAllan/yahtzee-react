@@ -1,9 +1,10 @@
-import { useContext } from "react";
-import { rules } from "../../config/game";
-import { DiceContext } from '../../context';
+import { useContext } from 'react';
+import { turns } from '../../config/game';
+import { DiceContext, TurnContext } from '../../context';
 
 export const Scorecard = () => {
   const { dice } = useContext(DiceContext);
+  const { currentTurn } = useContext(TurnContext);
 
   return (
     <div>
@@ -14,10 +15,13 @@ export const Scorecard = () => {
             <th>Turn</th>
             <th>Score</th>
           </tr>
-          <tr>
-            <td>{rules.upperSection.turns[0].displayName}</td>
-            <td>{rules.upperSection.turns[0].valueFormula(dice)}</td>
-          </tr>
+          {turns.map(turn => (
+            <tr key={turn.id} className={turn.id === currentTurn.turn
+            .id ? 'current-turn' : ''}>
+              <td>{turn.displayName}</td>
+              <td>{turn.valueFormula(dice)}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

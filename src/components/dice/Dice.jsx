@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { maxRolls } from '../../config/game';
+import { maxRolls, turns } from '../../config/game';
 import { holdDie, incrementRolls, resetDice, resetRolls, rollDice } from './functions';
 import './dice.css';
 import { DiceContext, TurnContext } from '../../context';
@@ -25,7 +25,11 @@ export const Dice = () => {
   function handleEndTurnButtonClick() {
     resetRolls({ rollSetter: setRolls });
     resetDice({ dice, diceSetter: setDice });
-    setCurrentTurn(currentTurn + 1);
+    
+    let newTurn = currentTurn;
+    newTurn.index = currentTurn.index + 1;
+    newTurn.turn = turns[currentTurn.index + 1];
+    setCurrentTurn(newTurn);
   }
 
   return (

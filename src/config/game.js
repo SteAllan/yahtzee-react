@@ -26,7 +26,12 @@ export const initialDiceConfig = [
 const valueTypes = {
   DYNAMIC: 'dynamic',
   FIXED: 'fixed'
-}
+};
+
+const sections = {
+  UPPER: 'upper',
+  LOWER: 'lower'
+};
 
 const upperSectionValueFormula = (dice, numberToAchieve) => {
   const filteredDice = dice.filter(die => die.number === numberToAchieve);
@@ -38,21 +43,47 @@ const upperSectionValueFormula = (dice, numberToAchieve) => {
   return 0;
 };
 
-export const rules = {
-  upperSection: {
-    turns: [
-      {
-        displayName: '1s',
-        valueType: valueTypes.DYNAMIC,
-        valueFormula: dice => upperSectionValueFormula(dice, 1)
-      },
-      {
-        displayName: '2s',
-        valueType: valueTypes.DYNAMIC,
-        valueFormula: dice => upperSectionValueFormula(dice, 2)
-      }
-    ],
-    totals: []
+export const turns = [
+  {
+    id: 'ones',
+    displayName: '1s',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => upperSectionValueFormula(dice, 1),
+    section: sections.UPPER
   },
-  lowerSection: {}
-};
+  {
+    id: 'twos',
+    displayName: '2s',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => upperSectionValueFormula(dice, 2),
+    section: sections.UPPER
+  },
+  {
+    id: 'threes',
+    displayName: '3s',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => upperSectionValueFormula(dice, 3),
+    section: sections.UPPER
+  },
+  {
+    id: 'fours',
+    displayName: '4s',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => upperSectionValueFormula(dice, 4),
+    section: sections.UPPER
+  },
+  {
+    id: 'fives',
+    displayName: '5s',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => upperSectionValueFormula(dice, 5),
+    section: sections.UPPER
+  },
+  {
+    id: 'sixes',
+    displayName: '6s',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => upperSectionValueFormula(dice, 6),
+    section: sections.UPPER
+  }
+];
