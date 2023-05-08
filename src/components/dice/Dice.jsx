@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { maxRolls, turns } from '../../config/game';
+import { maxRolls } from '../../config/game';
 import { holdDie, incrementRolls, resetDice, resetRolls, rollDice } from './functions';
 import './dice.css';
-import { DiceContext, TurnContext } from '../../context';
+import { DiceContext, GameContext } from '../../context';
 
 export const Dice = () => {
   const { dice, setDice } = useContext(DiceContext);
   const [rolls, setRolls] = useState(0);
-  const { currentTurn, setCurrentTurn } = useContext(TurnContext);
+  const { game, setGame } = useContext(GameContext);
 
   function handleRollButtonClick() {
     if (rolls < maxRolls) {
@@ -25,11 +25,18 @@ export const Dice = () => {
   function handleEndTurnButtonClick() {
     resetRolls({ rollSetter: setRolls });
     resetDice({ dice, diceSetter: setDice });
+
+    // Set score
+    let newGame = game;
+    const currentTurn = newGame.find(turn => turn.isCurrent);
+    currentTurn.score = currentTurn.valueFormula(dice);
     
-    let newTurn = currentTurn;
-    newTurn.index = currentTurn.index + 1;
-    newTurn.turn = turns[currentTurn.index + 1];
-    setCurrentTurn(newTurn);
+    // Set turn
+    const turnIndex = newGame.indexOf(currentTurn);
+    currentTurn.isCurrent = false;
+    newGame[turnIndex + 1].isCurrent = true;
+
+    setGame(newGame);
   }
 
   return (

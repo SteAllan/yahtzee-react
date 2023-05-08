@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { Dice } from './components/dice/Dice';
 import { Scorecard } from './components/scorecard/Scorecard';
 import { initialDiceConfig, turns } from './config/game';
-import { DiceContext, ScoreContext, TurnContext } from './context';
+import { DiceContext, GameContext, ScoreContext, TurnContext } from './context';
 
 function App() {
   const [dice, setDice] = useState(initialDiceConfig);
@@ -18,14 +18,27 @@ function App() {
   const [score, setScore] = useState([]);
   const scoreManager = { score, setScore };
 
+  const [game, setGame] = useState(turns);
+  const gameManager = { game, setGame };
+
+  useEffect(() => {
+    // Set first turn
+    let newGame = game;
+    newGame[0].isCurrent = true;
+    setGame(newGame);
+    console.log('set first turn');
+  }, [game]);
+
   return (
     <DiceContext.Provider value={diceManager}>
-      {/* <ScoreContext.Provider value={scoreManager}> */}
+      <ScoreContext.Provider value={scoreManager}>
         <TurnContext.Provider value={turnManager}>
-          <Dice />
-          <Scorecard />
+          <GameContext.Provider value={gameManager}>
+            <Dice />
+            <Scorecard />
+          </GameContext.Provider>
         </TurnContext.Provider>
-      {/* </ScoreContext.Provider> */}
+      </ScoreContext.Provider>
     </DiceContext.Provider>
   );
 }
