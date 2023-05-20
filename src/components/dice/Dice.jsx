@@ -34,7 +34,10 @@ export const Dice = () => {
     // Set turn
     const turnIndex = newGame.indexOf(currentTurn);
     currentTurn.isCurrent = false;
-    newGame[turnIndex + 1].isCurrent = true;
+
+    if (turnIndex + 1 < newGame.length) {
+      newGame[turnIndex + 1].isCurrent = true;
+    }
 
     setGame(newGame);
   }
