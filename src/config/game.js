@@ -2,22 +2,27 @@ export const maxRolls = 3;
 
 export const initialDiceConfig = [
   {
+    id: 'one',
     number: 1,
     held: false
   },
   {
+    id: 'two',
     number: 2,
     held: false
   },
   {
+    id: 'three',
     number: 3,
     held: false
   },
   {
+    id: 'four',
     number: 4,
     held: false
   },
   {
+    id: 'five',
     number: 5,
     held: false
   }
@@ -85,5 +90,26 @@ export const turns = [
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 6),
     section: sections.UPPER
+  },
+  {
+    id: 'one-pair',
+    displayName: 'One Pair',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => {
+      let score = 0;
+
+      dice.forEach(die => {
+        const otherDice = dice.filter(otherDie => otherDie.id !== die.id);
+        const matchingDie = otherDice.find(otherDie => otherDie.number === die.number);
+        const matchingPairValue = matchingDie && [die, matchingDie].reduce((acc, currentValue) => acc + currentValue.number, 0);
+
+        if (matchingPairValue > score) {
+          score = matchingPairValue;
+        }
+      });
+
+      return score;
+    },
+    section: sections.LOWER
   }
 ];
