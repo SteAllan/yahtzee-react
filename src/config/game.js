@@ -121,5 +121,17 @@ export const turns = [
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => dice.reduce((acc, currentValue) => acc + currentValue.number, 0),
     section: sections.LOWER
+  },
+  {
+    id: 'yahtzee',
+    displayName: 'Yahtzee',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => {
+      if (dice.every(die => die.number === dice[0].number)) {
+        return dice.reduce((acc, currentValue) => acc + currentValue.number, 0);
+      }
+      return 0;
+    },
+    section: sections.LOWER
   }
 ];
