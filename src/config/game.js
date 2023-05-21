@@ -101,10 +101,13 @@ export const turns = [
       dice.forEach(die => {
         const otherDice = dice.filter(otherDie => otherDie.id !== die.id);
         const matchingDie = otherDice.find(otherDie => otherDie.number === die.number);
-        const matchingPairValue = matchingDie && [die, matchingDie].reduce((acc, currentValue) => acc + currentValue.number, 0);
-
-        if (matchingPairValue > score) {
-          score = matchingPairValue;
+        
+        if (matchingDie) {
+          const matchingPairValue = [die, matchingDie].reduce((acc, currentValue) => acc + currentValue.number, 0);
+          
+          if (matchingPairValue > score) {
+            score = matchingPairValue;
+          }
         }
       });
 
