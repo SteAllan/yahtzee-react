@@ -114,5 +114,12 @@ export const turns = [
       return score;
     },
     section: sections.LOWER
+  },
+  {
+    id: 'chance',
+    displayName: 'Chance',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => dice.reduce((acc, currentValue) => acc + currentValue.number, 0),
+    section: sections.LOWER
   }
 ];
