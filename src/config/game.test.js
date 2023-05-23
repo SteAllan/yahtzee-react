@@ -617,6 +617,318 @@ describe('in upper section', () => {
 });
 
 describe('in lower section', () => {
+  describe('when turn is "one pair"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'one-pair').valueFormula;
+    });
+
+    test('no matching pair does not score points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('one matching pair scores the sum of the pair', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(2);
+    });
+
+    test('two matching pairs scores the sum of the highest-value pair', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(6);
+    });
+  });
+
+  describe('when turn is "two pairs"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'two-pairs').valueFormula;
+    });
+
+    test('fewer than two matching pairs scores no points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('two matching pairs scores the sum of the two pairs', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(8);
+    });
+  });
+
+  describe('when turn is "three alike"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'three-alike').valueFormula;
+    });
+
+    test('fewer than three matching dice does not score points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('three matching dice scores the sum of those dice', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(3);
+    });
+  });
+
+  describe('when turn is "four alike"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'four-alike').valueFormula;
+    });
+
+    test('fewer than four matching dice does not score points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('four matching dice scores the sum of those dice', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(4);
+    });
+  });
+  
   describe('when turn is "yahtzee"', () => {
     beforeAll(() => {
       toTest = turns.find(turn => turn.id === 'yahtzee').valueFormula;
@@ -684,6 +996,44 @@ describe('in lower section', () => {
       ];
 
       expect(toTest(dice)).toEqual(5);
+    });
+  });
+
+  describe('when turn is "chance"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'chance').valueFormula;
+    });
+
+    test('scores the sum of all dice', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(15);
     });
   });
 });
