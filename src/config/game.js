@@ -119,7 +119,44 @@ export const turns = [
     id: 'two-pairs',
     displayName: 'Two Pairs',
     valueType: valueTypes.DYNAMIC,
-    valueFormula: () => 0
+    valueFormula: dice => {
+      let reducableDice;
+      let scoreableDice = [];
+      
+      // Find first pair
+      for (let i = 0; i < dice.length; i++) {
+        const diceToCompare = [...dice];
+        diceToCompare.splice(i, 1);
+
+        const matchingDieIndex = diceToCompare.findIndex((die => die.number === dice[i].number));
+
+        if (matchingDieIndex > -1) {
+          scoreableDice.push(dice[i], diceToCompare[matchingDieIndex]);
+          diceToCompare.splice(matchingDieIndex, 1);
+          reducableDice = [...diceToCompare];
+          break;
+        }
+
+        return 0;
+      }
+
+      // Find second pair
+      for (let i = 0; i < reducableDice.length; i++) {
+        const diceToCompare = [...reducableDice];
+        diceToCompare.splice(i, 1);
+
+        const matchingDie = diceToCompare.find(die => die.number === reducableDice[i].number);
+
+        if (matchingDie) {
+          scoreableDice.push(reducableDice[i], matchingDie);
+          break;
+        }
+
+        return 0;
+      }
+
+      return scoreableDice.reduce((acc, currentValue) => acc + currentValue.number, 0);
+    }
   },
   {
     id: 'three-alike',
