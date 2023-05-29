@@ -116,6 +116,76 @@ export const turns = [
     section: sections.LOWER
   },
   {
+    id: 'two-pairs',
+    displayName: 'Two Pairs',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: () => 0
+  },
+  {
+    id: 'three-alike',
+    displayName: 'Three Alike',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => {
+      let scoreableDice = [];
+
+      for (const die of dice) {
+        const matchingDice = dice.filter(matchingDie => matchingDie.number === die.number);
+
+        if (matchingDice.length >= 3) {
+          scoreableDice = [matchingDice[0], matchingDice[1], matchingDice[2]];
+          break;
+        }
+      }
+
+      if (scoreableDice.length) {
+        return scoreableDice.reduce((acc, currentValue) => acc + currentValue.number, 0);
+      }
+
+      return 0;
+    }
+  },
+  {
+    id: 'four-alike',
+    displayName: 'Four Alike',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => {
+      let scoreableDice = [];
+
+      for (const die of dice) {
+        const matchingDice = dice.filter(matchingDie => matchingDie.number === die.number);
+
+        if (matchingDice.length >= 3) {
+          scoreableDice = [matchingDice[0], matchingDice[1], matchingDice[2], matchingDice[3]];
+          break;
+        }
+      }
+
+      if (scoreableDice.length) {
+        return scoreableDice.reduce((acc, currentValue) => acc + currentValue.number, 0);
+      }
+
+      return 0;
+    }
+  },
+  {
+    id: 'full-house',
+    displayName: 'Full House',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: () => 0
+  },
+  {
+    id: 'little-straight',
+    displayName: 'Little Straight',
+    valueType: valueTypes.FIXED,
+    value: 15
+  },
+  {
+    id: 'big-straight',
+    displayName: 'Big Straight',
+    valueType: valueTypes.FIXED,
+    value: 20
+  },
+  {
     id: 'chance',
     displayName: 'Chance',
     valueType: valueTypes.DYNAMIC,
