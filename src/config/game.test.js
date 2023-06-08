@@ -787,6 +787,38 @@ describe('in lower section', () => {
 
       expect(toTest(dice)).toEqual(8);
     });
+
+    test('four matching dice scores the sum of the two pairs', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(4);
+    });
   });
 
   describe('when turn is "three alike"', () => {

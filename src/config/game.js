@@ -101,10 +101,10 @@ export const turns = [
       dice.forEach(die => {
         const otherDice = dice.filter(otherDie => otherDie.id !== die.id);
         const matchingDie = otherDice.find(otherDie => otherDie.number === die.number);
-        
+
         if (matchingDie) {
           const matchingPairValue = [die, matchingDie].reduce((acc, currentValue) => acc + currentValue.number, 0);
-          
+
           if (matchingPairValue > score) {
             score = matchingPairValue;
           }
@@ -120,42 +120,38 @@ export const turns = [
     displayName: 'Two Pairs',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => {
-      let reducableDice;
-      let scoreableDice = [];
-      
-      // Find first pair
-      for (let i = 0; i < dice.length; i++) {
-        const diceToCompare = [...dice];
-        diceToCompare.splice(i, 1);
+      let firstPair = null;
+      let secondPair = null;
 
-        const matchingDieIndex = diceToCompare.findIndex((die => die.number === dice[i].number));
+      for (const die of dice) {
+        const matchingDice = dice.filter(matchingDie => matchingDie.number === die.number);
 
-        if (matchingDieIndex > -1) {
-          scoreableDice.push(dice[i], diceToCompare[matchingDieIndex]);
-          diceToCompare.splice(matchingDieIndex, 1);
-          reducableDice = [...diceToCompare];
-          break;
+        // Both pairs are the same
+        if (matchingDice.length >= 4) {
+          firstPair = [matchingDice[0], matchingDice[1]];
+          secondPair = [matchingDice[2], matchingDice[3]];
+
+          return [...firstPair, ...secondPair].reduce((acc, currentValue) => acc + currentValue.number, 0);
         }
 
-        return 0;
-      }
-
-      // Find second pair
-      for (let i = 0; i < reducableDice.length; i++) {
-        const diceToCompare = [...reducableDice];
-        diceToCompare.splice(i, 1);
-
-        const matchingDie = diceToCompare.find(die => die.number === reducableDice[i].number);
-
-        if (matchingDie) {
-          scoreableDice.push(reducableDice[i], matchingDie);
-          break;
+        if (matchingDice.length >= 2 &! firstPair) {
+          firstPair = [matchingDice[0], matchingDice[1]];
         }
+      };
 
-        return 0;
+      const filteredDice = dice.filter(die => die.number !== firstPair[0].number);
+
+      for (const die of filteredDice) {
+        const matchingDice = filteredDice.filter(matchingDie => matchingDie.number === die.number);
+  
+        if (matchingDice.length >= 2 &! secondPair) {
+          secondPair = [matchingDice[0], matchingDice[1]];
+
+          return [...firstPair, ...secondPair].reduce((acc, currentValue) => acc + currentValue.number, 0);
+        }
       }
 
-      return scoreableDice.reduce((acc, currentValue) => acc + currentValue.number, 0);
+      return 0;
     },
     section: sections.LOWER
   },
