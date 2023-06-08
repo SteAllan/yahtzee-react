@@ -156,7 +156,8 @@ export const turns = [
       }
 
       return scoreableDice.reduce((acc, currentValue) => acc + currentValue.number, 0);
-    }
+    },
+    section: sections.LOWER
   },
   {
     id: 'three-alike',
@@ -179,7 +180,8 @@ export const turns = [
       }
 
       return 0;
-    }
+    },
+    section: sections.LOWER
   },
   {
     id: 'four-alike',
@@ -202,13 +204,36 @@ export const turns = [
       }
 
       return 0;
-    }
+    },
+    section: sections.LOWER
   },
   {
     id: 'full-house',
     displayName: 'Full House',
     valueType: valueTypes.DYNAMIC,
-    valueFormula: () => 0
+    valueFormula: dice => {
+      let pair = null;
+      let trio = null;
+
+      dice.forEach(die => {
+        const matchingDice = dice.filter(matchingDie => matchingDie.number === die.number);
+
+        if (matchingDice.length === 2 && !pair) {
+          pair = matchingDice;
+        }
+
+        if (matchingDice.length === 3 && !trio) {
+          trio = matchingDice;
+        }
+      });
+
+      if (pair?.length === 2 && trio?.length === 3) {
+        return 25;
+      }
+
+      return 0;
+    },
+    section: sections.LOWER
   },
   {
     id: 'little-straight',
@@ -237,7 +262,8 @@ export const turns = [
       }
 
       return 15;
-    }
+    },
+    section: sections.LOWER
   },
   {
     id: 'big-straight',
@@ -266,13 +292,7 @@ export const turns = [
       }
 
       return 20;
-    }
-  },
-  {
-    id: 'chance',
-    displayName: 'Chance',
-    valueType: valueTypes.DYNAMIC,
-    valueFormula: dice => dice.reduce((acc, currentValue) => acc + currentValue.number, 0),
+    },
     section: sections.LOWER
   },
   {
@@ -285,6 +305,13 @@ export const turns = [
       }
       return 0;
     },
+    section: sections.LOWER
+  },
+  {
+    id: 'chance',
+    displayName: 'Chance',
+    valueType: valueTypes.DYNAMIC,
+    valueFormula: dice => dice.reduce((acc, currentValue) => acc + currentValue.number, 0),
     section: sections.LOWER
   }
 ];

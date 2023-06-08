@@ -929,6 +929,76 @@ describe('in lower section', () => {
     });
   });
 
+  describe('when turn is "full house"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'full-house').valueFormula;
+    });
+
+    test('less than a pair and a trio scores no points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 3,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('a pair and a trio scores 25 points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 3,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(25);
+    });
+  });
+
   describe('when turn is "little straight"', () => {
     beforeAll(() => {
       toTest = turns.find(turn => turn.id === 'little-straight').valueFormula;
