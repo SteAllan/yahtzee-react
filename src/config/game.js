@@ -191,7 +191,7 @@ export const turns = [
       for (const die of dice) {
         const matchingDice = dice.filter(matchingDie => matchingDie.number === die.number);
 
-        if (matchingDice.length >= 3) {
+        if (matchingDice.length >= 4) {
           scoreableDice = [matchingDice[0], matchingDice[1], matchingDice[2], matchingDice[3]];
           break;
         }
@@ -214,13 +214,59 @@ export const turns = [
     id: 'little-straight',
     displayName: 'Little Straight',
     valueType: valueTypes.FIXED,
-    value: 15
+    value: 15,
+    valueFormula: dice => {
+      if (!dice.some(die => die.number === 1)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 2)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 3)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 4)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 5)) {
+        return 0;
+      }
+
+      return 15;
+    }
   },
   {
     id: 'big-straight',
     displayName: 'Big Straight',
     valueType: valueTypes.FIXED,
-    value: 20
+    value: 20,
+    valueFormula: dice => {
+      if (!dice.some(die => die.number === 2)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 3)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 4)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 5)) {
+        return 0;
+      }
+
+      if (!dice.some(die => die.number === 6)) {
+        return 0;
+      }
+
+      return 20;
+    }
   },
   {
     id: 'chance',

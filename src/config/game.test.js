@@ -928,6 +928,146 @@ describe('in lower section', () => {
       expect(toTest(dice)).toEqual(4);
     });
   });
+
+  describe('when turn is "little straight"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'little-straight').valueFormula;
+    });
+
+    test('an incomplete run does not score points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('a run of 1, 2, 3, 4, 5 scores 15 points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 1,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(15);
+    });
+  });
+
+  describe('when turn is "big straight"', () => {
+    beforeAll(() => {
+      toTest = turns.find(turn => turn.id === 'big-straight').valueFormula;
+    });
+
+    test('an incomplete run does not score points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 5,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(0);
+    });
+
+    test('a run of 2, 3, 4, 5, 6 scores 20 points', () => {
+      const dice = [
+        {
+          id: 'one',
+          number: 2,
+          held: false
+        },
+        {
+          id: 'two',
+          number: 3,
+          held: false
+        },
+        {
+          id: 'three',
+          number: 4,
+          held: false
+        },
+        {
+          id: 'four',
+          number: 5,
+          held: false
+        },
+        {
+          id: 'five',
+          number: 6,
+          held: false
+        }
+      ];
+
+      expect(toTest(dice)).toEqual(20);
+    });
+  });
   
   describe('when turn is "yahtzee"', () => {
     beforeAll(() => {
