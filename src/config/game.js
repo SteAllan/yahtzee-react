@@ -307,13 +307,8 @@ export const turns = [
   {
     id: 'yahtzee',
     displayName: 'Yahtzee',
-    valueType: valueTypes.DYNAMIC,
-    valueFormula: dice => {
-      if (dice.every(die => die.number === dice[0].number)) {
-        return dice.reduce((acc, currentValue) => acc + currentValue.number, 0);
-      }
-      return 0;
-    },
+    valueType: valueTypes.FIXED,
+    valueFormula: dice => dice.every(die => die.number === dice[0].number) ? 50 : 0,
     section: sections.LOWER,
     score: 0
   },

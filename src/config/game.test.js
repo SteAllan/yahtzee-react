@@ -1208,7 +1208,7 @@ describe('in lower section', () => {
       expect(toTest(dice)).toEqual(0);
     });
 
-    test('five matching dice scores the sum of all dice', () => {
+    test('five matching dice scores 50 points', () => {
       const dice = [
         {
           id: 'one',
@@ -1237,7 +1237,7 @@ describe('in lower section', () => {
         }
       ];
 
-      expect(toTest(dice)).toEqual(5);
+      expect(toTest(dice)).toEqual(50);
     });
   });
 
