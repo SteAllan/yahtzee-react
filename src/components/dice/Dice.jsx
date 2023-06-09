@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import { maxRolls } from '../../config/game';
 import { holdDie, incrementRolls, resetDice, resetRolls, rollDice } from './functions';
 import './dice.css';
-import { DiceContext, GameContext } from '../../context';
+import { DiceContext, GameContext, ScoreContext } from '../../context';
+import { sections } from '../../config/game';
 
 export const Dice = () => {
   const { dice, setDice } = useContext(DiceContext);
   const [rolls, setRolls] = useState(0);
   const { game, setGame } = useContext(GameContext);
+  const { score, setScore } = useContext(ScoreContext);
 
   function handleRollButtonClick() {
     if (rolls < maxRolls) {
@@ -26,10 +28,20 @@ export const Dice = () => {
     resetRolls({ rollSetter: setRolls });
     resetDice({ dice, diceSetter: setDice });
 
-    // Set score
+    // Set dice score
     let newGame = game;
     const currentTurn = newGame.find(turn => turn.isCurrent);
     currentTurn.score = currentTurn.valueFormula(dice);
+
+    // Update game score
+    let newScore = score;
+    newScore.upperPrelimTotal = game.filter(turn => turn.section === sections.UPPER).reduce((acc, currentValue) => acc + currentValue?.score, 0);
+    newScore.upperBonus = newScore.upperPrelimTotal >= 45 ? 50 : 0;
+    newScore.upperTotal = newScore.upperPrelimTotal + newScore.upperBonus;
+    newScore.lowerTotal = game.filter(turn => turn.section === sections.LOWER).reduce((acc, currentValue) => acc + currentValue?.score, 0);
+    newScore.gameTotal = newScore.upperTotal + newScore.lowerTotal;
+
+    setScore(newScore);
     
     // Set turn
     const turnIndex = newGame.indexOf(currentTurn);

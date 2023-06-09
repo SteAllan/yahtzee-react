@@ -33,7 +33,7 @@ const valueTypes = {
   FIXED: 'fixed'
 };
 
-const sections = {
+export const sections = {
   UPPER: 'upper',
   LOWER: 'lower'
 };
@@ -54,42 +54,48 @@ export const turns = [
     displayName: '1s',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 1),
-    section: sections.UPPER
+    section: sections.UPPER,
+    score: 0
   },
   {
     id: 'twos',
     displayName: '2s',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 2),
-    section: sections.UPPER
+    section: sections.UPPER,
+    score: 0
   },
   {
     id: 'threes',
     displayName: '3s',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 3),
-    section: sections.UPPER
+    section: sections.UPPER,
+    score: 0
   },
   {
     id: 'fours',
     displayName: '4s',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 4),
-    section: sections.UPPER
+    section: sections.UPPER,
+    score: 0
   },
   {
     id: 'fives',
     displayName: '5s',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 5),
-    section: sections.UPPER
+    section: sections.UPPER,
+    score: 0
   },
   {
     id: 'sixes',
     displayName: '6s',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => upperSectionValueFormula(dice, 6),
-    section: sections.UPPER
+    section: sections.UPPER,
+    score: 0
   },
   {
     id: 'one-pair',
@@ -113,7 +119,8 @@ export const turns = [
 
       return score;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'two-pairs',
@@ -153,7 +160,8 @@ export const turns = [
 
       return 0;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'three-alike',
@@ -177,7 +185,8 @@ export const turns = [
 
       return 0;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'four-alike',
@@ -201,7 +210,8 @@ export const turns = [
 
       return 0;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'full-house',
@@ -229,7 +239,8 @@ export const turns = [
 
       return 0;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'little-straight',
@@ -259,7 +270,8 @@ export const turns = [
 
       return 15;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'big-straight',
@@ -289,7 +301,8 @@ export const turns = [
 
       return 20;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'yahtzee',
@@ -301,13 +314,15 @@ export const turns = [
       }
       return 0;
     },
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   },
   {
     id: 'chance',
     displayName: 'Chance',
     valueType: valueTypes.DYNAMIC,
     valueFormula: dice => dice.reduce((acc, currentValue) => acc + currentValue.number, 0),
-    section: sections.LOWER
+    section: sections.LOWER,
+    score: 0
   }
 ];

@@ -15,7 +15,13 @@ function App() {
   });
   const turnManager = { currentTurn, setCurrentTurn };
 
-  const [score, setScore] = useState([]);
+  const [score, setScore] = useState({
+    upperPrelimTotal: 0,
+    upperBonus: 0,
+    upperTotal: 0,
+    lowerTotal: 0,
+    gameTotal: 0
+  });
   const scoreManager = { score, setScore };
 
   const [game, setGame] = useState(turns);
@@ -26,7 +32,6 @@ function App() {
     let newGame = game;
     newGame[0].isCurrent = true;
     setGame(newGame);
-    console.log('set first turn');
   }, [game]);
 
   return (
